@@ -3,6 +3,7 @@ package com.example.swag.Controller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.swag.Adapters.CategoryAdapter
 import com.example.swag.Model.Category
 import com.example.swag.Model.Services.DataService
@@ -17,8 +18,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         adapter = CategoryAdapter(this, DataService.categories)
         categoryListView.adapter = adapter
+
+            /* This will not work for recyclerViews
+            categoryListView.setOnItemClickListener { adapterView, view, i, l ->
+            val category = DataService.categories[i]
+            Toast.makeText(this,"You clicked on the ${category.title} cell", Toast.LENGTH_LONG).show()
+*/
+
+        }
     }
 }
