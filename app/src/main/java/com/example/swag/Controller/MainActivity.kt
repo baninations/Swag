@@ -1,5 +1,6 @@
 package com.example.swag.Controller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -11,6 +12,7 @@ import com.example.swag.Adapters.CategoryRecycleAdapter
 import com.example.swag.Model.Category
 import com.example.swag.Model.Services.DataService
 import com.example.swag.R
+import com.example.swag.untilities.EXTRA_CATEGORY
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,8 +23,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = CategoryRecycleAdapter(this, DataService.categories)
+        adapter = CategoryRecycleAdapter(this,DataService.categories){ category ->
+            val productIntent = Intent(this,ProductsActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY, category.title)
+            startActivity(productIntent)
+        }
         categoryListView.adapter = adapter
+
         val layoutManager = LinearLayoutManager(this)
         categoryListView.layoutManager = layoutManager
         //If we know it is static
